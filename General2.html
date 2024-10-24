@@ -1,0 +1,233 @@
+<div class="header">
+    <h1>Bro Chat Forums</h1>
+  </div>
+  
+  <div class="container">
+    <div class="content-card">
+      <h2 class="section-title">General Chat</h2>
+      
+      <p>Welcome to the General Chat section! This is the place to discuss
+      anything and everything. Share your thoughts, ask questions, or just
+      hang out!</p>
+  
+      <form class="comment-form" id="commentForm">
+        <h3>Post a Comment</h3>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input 
+            type="text" 
+            id="username" 
+            name="username" 
+            required 
+            placeholder="Your username"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="commentText">Your Comment:</label>
+          <textarea 
+            id="commentText" 
+            name="commentText" 
+            rows="4" 
+            required 
+            placeholder="Share your thoughts..."
+          ></textarea>
+        </div>
+  
+        <button type="submit" class="nav-button">Post Comment</button>
+      </form>
+  
+      <div id="comments" class="comment-section">
+        <div class="comment">
+          <div class="comment-header">
+            <span class="username">ChatUser</span>
+            <span class="timestamp">Just now</span>
+          </div>
+          <p class="comment-content">This is where posted comments will appear.</p>
+        </div>
+      </div>
+  
+      <div class="navigation">
+        <a href="index.html" class="nav-button">← Back to Home</a>
+      </div>
+    </div>
+  </div>
+  
+  <style>
+  :root {
+      --primary-dark: #1a1a1a;
+      --secondary-dark: #2d2d2d;
+      --accent: #bf360c;
+      --text: #d4d4d4;
+      --border: #404040;
+  }
+  
+  body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: var(--primary-dark);
+      color: var(--text);
+  }
+  
+  .header {
+      background: var(--secondary-dark);
+      border-bottom: 3px solid var(--accent);
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+  
+  .header h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+  }
+  
+  .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+  }
+  
+  .content-card {
+      background: var(--secondary-dark);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2rem;
+      margin: 1rem 0;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text);
+  }
+  
+  .nav-button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      margin: 0.5rem;
+      background: var(--secondary-dark);
+      color: var(--text);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-weight: 600;
+      transition: all 0.2s;
+      cursor: pointer;
+  }
+  
+  .nav-button:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+  }
+  
+  .comment-form {
+      background: rgba(0, 0, 0, 0.2);
+      padding: 1.5rem;
+      border-radius: 4px;
+      margin-top: 2rem;
+  }
+  
+  .form-group {
+      margin-bottom: 15px;
+  }
+  
+  .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: var(--text);
+  }
+  
+  input[type="text"],
+  textarea {
+      width: 100%;
+      padding: 8px;
+      background: var(--primary-dark);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 14px;
+      color: var(--text);
+  }
+  
+  input[type="text"]:focus,
+  textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+  }
+  
+  .comment {
+      border-bottom: 1px solid var(--border);
+      padding: 15px 0;
+  }
+  
+  .comment-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+  }
+  
+  .username {
+      font-weight: bold;
+      color: var(--accent);
+  }
+  
+  .timestamp {
+      color: var(--text);
+      opacity: 0.7;
+      font-size: 12px;
+  }
+  
+  .comment-content {
+      margin: 0;
+      line-height: 1.5;
+  }
+  
+  .navigation {
+      margin-top: 20px;
+      text-align: center;
+  }
+  
+  ::placeholder {
+      color: var(--text);
+      opacity: 0.5;
+  }
+  </style>
+  
+  <script>
+  document.getElementById('commentForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const username = document.getElementById('username').value;
+      const commentText = document.getElementById('commentText').value;
+      
+      // Create new comment element
+      const commentDiv = document.createElement('div');
+      commentDiv.className = 'comment';
+      
+      // Add comment content
+      commentDiv.innerHTML = `
+          <div class="comment-header">
+              <span class="username">${username}</span>
+              <span class="timestamp">Just now</span>
+          </div>
+          <p class="comment-content">${commentText}</p>
+      `;
+      
+      // Add new comment to top of comments section
+      const commentsSection = document.getElementById('comments');
+      commentsSection.insertBefore(commentDiv, commentsSection.firstChild);
+      
+      // Clear form
+      document.getElementById('username').value = '';
+      document.getElementById('commentText').value = '';
+  });
+  </script>
